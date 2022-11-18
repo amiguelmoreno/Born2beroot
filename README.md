@@ -1,3 +1,16 @@
+<h1 align="center">
+	🖥️ Born2beroot
+</h1>
+
+<p align="center">
+	<b><i>Create a Virtual Machine from scratch with VirtualBox</i></b><br>
+</p>
+<p align="center">
+	For further information about 42 Malaga and its projects, please refer to <a href="https://github.com/amiguelmoreno/42-Malaga"><b>42 Malaga repo</b></a>.
+</p>
+
+---
+
 # Table of Contents
 
 - [1 - Virtual Machine (VirtualBox)](#1---virtual-machine-virtualbox)
@@ -64,11 +77,11 @@
 ## 2.1 - General
 * [Select](img/Install/1.png) `Install` instead of any other option (remember, no graphical install is allowed)
 * [Language](img/Install/2.png): select default `English`
-* [Location](img/Install/3.png): select `other`, `Europe` and then `Portugal`
+* [Location](img/Install/3.png): select `other`, `Europe` and then `Spain`
 * [Local configuration](img/Install/4.png): select default `United States`
 * [Keyboard](img/Install/5.png): `American English`
 > - The hostname of your virtual machine must be your login ending with 42 (e.g., wil42)
-* [Hostname](img/Install/6.png): `pvaladar42`
+* [Hostname](img/Install/6.png): `antmoren42`
 * > Note: Hostname can always be changed later using command `hostnamectl set-hostname <name>`, more info [here](https://www.cyberciti.biz/faq/debian-change-hostname-permanently/)
 * [Domain name](img/Install/7.png): *empty*
 > - You have to implement a strong password policy.
@@ -80,10 +93,10 @@
 * Root password: *see rules above (e.g.: dcOivR999D, use a strong password generator like [here](https://passwordsgenerator.net/))*
 > In addition to the root user, a user with your login as username has to be present.
 * User account:
-  * [Full name](img/Install/8.png): `Pedro Valadares`
-  * [Username](img/Install/9.png): `pvaladar`
+  * [Full name](img/Install/8.png): `Miguel Moreno`
+  * [Username](img/Install/9.png): `antmoren`
  * Password: *see rules above (e.g.: zipNNxuk1p)*
-* [Timezone](img/Install/10.png): `Lisbon`
+* [Timezone](img/Install/10.png): `Madrid`
 
 ## 2.2 - Disk partition (with bonus)
 
@@ -93,7 +106,7 @@
 
 * Configure the package manager:
   * [Scan extra installation media](img/Install/11.png): choose `No`
-  * [Debian archive mirror country](img/Install/12.png): choose `Portugal`
+  * [Debian archive mirror country](img/Install/12.png): choose `Spain`
   * [Debian archive mirror](img/Install/13.png): choose `deb.debian.org`
   * [HTTP proxy information](img/Install/14.png): *empty*
 * [Participate in the package usage survey](img/Install/15.png): choose `No`
@@ -123,13 +136,13 @@
 >
 > - This user has to belong to the `user42` and `sudo` groups.
 
-* Add the user to sudo `adduser pvaladar sudo`
+* Add the user to sudo `adduser antmoren sudo`
 * Reboot with `reboot` and then login again after `sudo -v` to force cached credentials (will confirm that sudo is working)
 * Create the group `sudo addgroup user42`
-* Add the user to the group `sudo adduser pvaladar user42`
+* Add the user to the group `sudo adduser antmoren user42`
 * Verify if the user is correctly added to the groups: `getent group sudo` and `getent group user42`
 
-*Note: Another way would be to use the following command: `usermod -aG sudo pvaladar`*, man page [here](https://man7.org/linux/man-pages/man8/usermod.8.html)
+*Note: Another way would be to use the following command: `usermod -aG sudo antmoren`*, man page [here](https://man7.org/linux/man-pages/man8/usermod.8.html)
 
 ## 3.3 - Setting up a strong password policy
 
@@ -153,21 +166,21 @@ Notice that on line 296 it is mentioned that another file needs to be edited on 
 #                                               #
 # These options are now handled by PAM. Please  #
 # edit the appropriate file in /etc/pam.d/ to   #
-# enable the equivelants of them.
-#
-###############
+# enable the equivelants of them.		#
+#						#	
+#################################################
 ```
 
 For existing users like `root` and `pvaladar` it is required to manually update them:
 ```bash
 # Update root
-chage root --maxdays 30 --mindays 2 --warndays 7
+change root --maxdays 30 --mindays 2 --warndays 7
 # Confirm that everything is OK with root
-chage -l root
+change -l root
 # Update user
-chage pvaladar -M 30 -m 2 -W 7
+change antmoren -M 30 -m 2 -W 7
 # Confirm that everything is OK with user
-chage -l pvaladar
+change -l pvaladar
 ```
 
 ### 3.3.2 - [pam_pwquality - PAM module to perform password quality checking](https://manpages.debian.org/jessie/libpam-pwquality/pam_pwquality.8.en.html)
@@ -436,13 +449,13 @@ For the WordPress we will be installing the so called **LLMP Stack (Linux Lightt
 ```bash
 CREATE DATABASE my_db;
 ```
-* Create `pvaladar` database user identified by `IamTHEp4ssword!` password:
+* Create `antmoren` database user identified by `IamTHEp4ssword!` password:
 ```bash
 CREATE USER pvaladar@localhost IDENTIFIED BY 'IamTHEp4ssword!';
 ```
-* Give full privileges on `my_db` to `pvaladar`:
+* Give full privileges on `my_db` to `antmoren`:
 ```bash
-GRANT ALL ON my_db.* TO 'pvaladar'@'localhost' IDENTIFIED BY 'IamTHEp4ssword!' WITH GRANT OPTION;
+GRANT ALL ON my_db.* TO 'antmoren'@'localhost' IDENTIFIED BY 'IamTHEp4ssword!' WITH GRANT OPTION;
 ```
 * Changes to take effect without reload/restart MariaDB:
 ```bash
@@ -454,7 +467,7 @@ SELECT host, user FROM mysql.user;
 ```
 * Everything should be OK now. Type `exit` and log in back to check to which databases the newly created user has access to:
 ```bash
-sudo mariadb --user=pvaladar --password=IamTHEp4ssword!
+sudo mariadb --user=antmoren --password=IamTHEp4ssword!
 ```
 * Check that the tables that were created, `my_db` should be listed:
 ```bash
@@ -522,7 +535,7 @@ sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 sudo vi /var/www/html/wp-config.php
 ```
 * On line 23, replace `database_name_here` by `my_db`
-* On line 26, replace `username_here` by `pvaladar`
+* On line 26, replace `username_here` by `antmoren`
 * On line 29, replace `password_here` by `IamTHEp4ssword!`
 
 * Now accessing `http://<ip address>` will automatically forward to `http://<ip address>/wp-admin/install.php` to start the installation.
@@ -605,9 +618,9 @@ Description=IPFS Daemon
 [Service]
 Type=simple
 ExecStart=ipfs daemon --enable-gc
-Group=pvaladar
+Group=antmoren
 Restart=always
-Environment="IPFS_PATH=/home/pvaladar/.ipfs"
+Environment="IPFS_PATH=/home/antmoren/.ipfs"
 [Install]
 WantedBy=multi-user.target
 ```
@@ -701,3 +714,9 @@ groups
 * [baigal Guide](https://baigal.medium.com/born2beroot-e6e26dfb50ac)
 * [Headlighter Guide](https://github.com/HEADLIGHTER/Born2BeRoot-42)
 * [Born2BeRoot Correction](https://github.com/sltcestloic/born2beroot_correction/blob/master/correction_born2beroot.pdf)
+	
+	
+<p align="center">
+Thanks to Pedro Valadares for letting me use his README file, click <a href="https://github.com/pvaladares"><b>here</b></a> to see his profile.
+</p>
+
