@@ -1,5 +1,6 @@
 <h1 align="center">
-	🖥️ Born2beroot
+	🖥️ </br>
+	Born2beroot
 </h1>
 
 <p align="center">
